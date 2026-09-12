@@ -2,236 +2,99 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f0b14">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="After Dark">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0b0711">
 <title>Couples After Dark</title>
 <style>
-:root{--bg:#0f0b14;--panel:#19131f;--panel2:#241a2b;--text:#fff7fb;--muted:#b8a9b7;--pink:#ff4d8d;--violet:#8b5cf6;--gold:#ffd166;--border:#ffffff18}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:radial-gradient(circle at 15% 0%,#8b5cf633,transparent 34%),radial-gradient(circle at 100% 12%,#ff4d8d2b,transparent 36%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-body{padding:calc(env(safe-area-inset-top) + 12px) 14px calc(env(safe-area-inset-bottom) + 24px)}
-.app{max-width:720px;margin:auto}
-.hidden{display:none!important}
-.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-.brand{font-weight:900;letter-spacing:.2px}
-.pill{font-size:12px;padding:7px 10px;border:1px solid var(--border);border-radius:999px;background:#ffffff0c}
-.card{background:linear-gradient(180deg,#ffffff0d,#ffffff07);border:1px solid var(--border);border-radius:26px;padding:20px}
-.hero{text-align:center;padding:24px 6px 18px}
-.hero .emoji{font-size:58px} h1{font-size:38px;line-height:1;margin:10px 0 8px} p{color:var(--muted);line-height:1.45}
-.stack{display:grid;gap:12px} .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-label{display:block;font-size:13px;color:#d7ccd8;margin-bottom:7px}
-input,select{width:100%;min-height:48px;border:1px solid var(--border);border-radius:15px;background:#100c14;color:white;padding:12px 14px;font-size:16px}
-button{min-height:48px;border:0;border-radius:16px;padding:12px 14px;font-size:16px;font-weight:800;color:white;background:#2c2433}
-button.primary{background:linear-gradient(135deg,var(--pink),var(--violet))}
-button.ghost{background:transparent;border:1px solid var(--border)}
-.scorebar{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-bottom:12px}
-.score{text-align:center;background:#ffffff0a;border:1px solid var(--border);border-radius:18px;padding:10px;min-width:0}
-.score small{display:block;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .score strong{font-size:24px}
-.vs{color:#756d78;font-weight:900}
-.playzone{min-height:485px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;overflow:hidden}
-.tag{display:inline-block;padding:8px 11px;border-radius:999px;background:#ffffff10;border:1px solid var(--border);font-size:12px}
-.tapline{font-size:25px;font-weight:900;margin-top:16px}
-.spinner-wrap{position:relative;width:200px;height:200px;margin:18px auto 10px;display:grid;place-items:center}
-.ring{position:absolute;inset:0;border-radius:50%;border:2px solid #ffffff22;background:conic-gradient(#ffffff12 0 30deg,#ffffff04 30deg 60deg,#ffffff12 60deg 90deg,#ffffff04 90deg 120deg,#ffffff12 120deg 150deg,#ffffff04 150deg 180deg,#ffffff12 180deg 210deg,#ffffff04 210deg 240deg,#ffffff12 240deg 270deg,#ffffff04 270deg 300deg,#ffffff12 300deg 330deg,#ffffff04 330deg 360deg);box-shadow:0 0 0 6px #ffffff08,0 0 50px #8b5cf644}
-.pointer{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:21px solid var(--gold);filter:drop-shadow(0 3px 6px #0008);z-index:3}
-.die{position:relative;z-index:2;width:132px;height:132px;border-radius:32px;display:grid;place-items:center;background:linear-gradient(145deg,#ff5c96,#7c52ee);box-shadow:inset 0 0 0 1px #ffffff4a,0 0 36px #ff4d8d3f,0 18px 36px #0007;font-size:66px;font-weight:1000;letter-spacing:-3px}
-.question{font-size:28px;line-height:1.22;font-weight:900;margin:22px 0;max-width:610px}
-.turn{color:var(--gold);font-size:13px;font-weight:800;margin-top:13px}
-.hint{font-size:13px;color:var(--muted);margin-top:10px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px} .full{grid-column:1/-1}
-.spin{animation:wheelspin .28s linear infinite} .pulse{animation:pulse .09s ease-in-out infinite alternate} .shake{animation:shake .16s linear 3} .pop{animation:pop .55s cubic-bezier(.18,1.35,.35,1)}
-@keyframes wheelspin{to{transform:rotate(360deg)}} @keyframes pulse{to{transform:scale(1.07) rotate(2deg)}}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-@keyframes pop{0%{transform:scale(.72);opacity:.2}60%{transform:scale(1.1);opacity:1}100%{transform:scale(1)}}
-@keyframes glow{0%,100%{box-shadow:0 0 22px #ff4d8d33,0 18px 36px #0007}50%{box-shadow:0 0 48px #ff4d8d88,0 0 70px #8b5cf666,0 18px 36px #0007}}
-.glow{animation:glow .7s ease-in-out infinite}
-@media(max-width:390px){h1{font-size:33px}.spinner-wrap{width:174px;height:174px}.die{width:116px;height:116px;font-size:58px}.question{font-size:24px}.playzone{min-height:445px}}
-@media(prefers-reduced-motion:reduce){.spin,.pulse,.shake,.pop{animation:none}}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0b0711;color:#fff}
+body{background:radial-gradient(circle at 10% 0,#251643 0,transparent 38%),radial-gradient(circle at 100% 15%,#3a1729 0,transparent 38%),#0b0711}
+.wrap{max-width:700px;margin:auto;padding:calc(20px + env(safe-area-inset-top)) 18px calc(32px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.brand{font-size:22px;font-weight:800}.pill,.levelBadge{border:1px solid #ffffff22;background:#ffffff0b;border-radius:999px;padding:10px 15px}
+.hero{text-align:center;padding:28px 0 20px}.kiss{font-size:52px}.hero h1{font-size:48px;line-height:.98;margin:12px 0}.muted{color:#b9adb9}
+.card{background:#ffffff09;border:1px solid #ffffff18;border-radius:28px;padding:22px;margin:14px 0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{display:block;color:#c6bac8;margin-bottom:8px}
+input,select{width:100%;background:#09070d;color:#fff;border:1px solid #ffffff18;border-radius:18px;padding:17px;font-size:19px}
+button{width:100%;border:0;border-radius:19px;padding:18px;font-size:19px;font-weight:800;color:#fff;background:#ffffff12}
+.primary{background:linear-gradient(90deg,#ea4f91,#8754ef);font-size:21px}.hidden{display:none!important}
+.score{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}.scorebox{text-align:center;padding:16px;border:1px solid #ffffff16;border-radius:25px;background:#ffffff08}.scorebox b{font-size:34px}.vs{font-weight:900;color:#887b8d}
+.play{min-height:510px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;position:relative;touch-action:manipulation}
+.turn{font-size:21px;font-weight:800;color:#ffd26a;margin:10px}.instruction{font-size:17px;color:#b9adb9;margin-top:15px}
+.wheel{width:230px;height:230px;border-radius:50%;position:relative;margin:25px;background:conic-gradient(#ee4f91 0 45deg,#7d52ee 45deg 90deg,#ffb54c 90deg 135deg,#ee4f91 135deg 180deg,#7d52ee 180deg 225deg,#ffb54c 225deg 270deg,#ee4f91 270deg 315deg,#7d52ee 315deg);box-shadow:0 0 50px #a04cff55;border:8px solid #ffffff18;display:flex;align-items:center;justify-content:center}
+.wheel:before{content:"";position:absolute;top:-27px;border-left:17px solid transparent;border-right:17px solid transparent;border-top:32px solid #fff;z-index:3}
+.wheelInner{width:135px;height:135px;border-radius:50%;background:#0c0811;border:5px solid #ffffff26;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:900;box-shadow:inset 0 0 25px #000}
+.spinning{animation:spin .22s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.pulse{animation:pulse .55s infinite alternate}@keyframes pulse{to{transform:scale(1.08);filter:brightness(1.3)}}
+.questionNo{font-size:28px;color:#ffd26a;font-weight:900}.question{font-size:31px;line-height:1.08;font-weight:900;max-width:590px;margin:10px auto}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.small{font-size:17px;padding:15px}.danger{background:#8c2743}.secondary{background:#2b2334}
+.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:12px}.forfeit{border:1px dashed #ffffff28;background:#ffffff07}
+select option{background:#111}
+@media(max-width:430px){.hero h1{font-size:42px}.question{font-size:27px}.wheel{width:205px;height:205px}.play{min-height:480px}}
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="top"><div class="brand">🔥 Couples After Dark</div><div id="modePill" class="pill">Date Night</div></div>
+<div class="wrap">
+<header><div class="brand">🔥 Couples After Dark</div><div class="pill">Date Night</div></header>
 
-  <section id="setup">
-    <div class="hero"><div class="emoji">💋</div><h1>Couples<br>After Dark</h1><p>Tap. Spin. Reveal. Answer. Repeat.</p></div>
-    <div class="card stack">
-      <div class="row">
-        <div><label for="p1">Player 1</label><input id="p1" value="Player 1"></div>
-        <div><label for="p2">Player 2</label><input id="p2" value="Player 2"></div>
-      </div>
-      <div>
-        <label for="level">Starting level</label>
-        <select id="level">
-          <option value="1">😊 Fun</option>
-          <option value="2" selected>😘 Flirty</option>
-          <option value="3">🔥 Daring</option>
-          <option value="4">😈 After Dark</option>
-          <option value="5">🔞 Filthy</option>
-          <option value="6">🔥 No Limits</option>
-          <option value="0">🎲 Surprise Me — gets hotter as you play</option>
-        </select>
-      </div>
-      <div class="row">
-        <button id="soundToggle" class="ghost" type="button">🔊 Sound On</button>
-        <button id="resetSaved" class="ghost" type="button">↺ Reset Saved Game</button>
-      </div>
-      <button id="start" class="primary">Start Date Night</button>
-      <p class="hint" style="margin:0;text-align:center">Everything is optional. Skip anything either of you does not fancy. Keep it consensual and within both of your boundaries.</p>
-    </div>
-  </section>
+<section id="setup">
+ <div class="hero"><div class="kiss">💋</div><h1>Couples<br>After Dark</h1><p class="muted">Tap. Spin. Reveal. Answer. Repeat.</p></div>
+ <div class="card">
+  <div class="row">
+   <div><label>Player 1</label><input id="p1" value="Jim"></div>
+   <div><label>Player 2</label><input id="p2" value="Emma"></div>
+  </div>
+  <div style="margin-top:18px"><label>Starting level</label><select id="startLevel">
+   <option value="fun">😄 Fun</option><option value="flirty" selected>😘 Flirty</option><option value="daring">🔥 Daring</option><option value="after">🌙 After Dark</option><option value="explicit">🔞 Explicit</option><option value="surprise">🎲 Surprise Me</option>
+  </select></div>
+  <button class="primary" style="margin-top:18px" onclick="startGame()">Start Date Night</button>
+  <p class="muted" style="text-align:center">Everything is optional. Skip anything either of you doesn't fancy.</p>
+ </div>
+</section>
 
-  <section id="game" class="hidden">
-    <div class="scorebar">
-      <div class="score"><small id="n1">Player 1</small><strong id="s1">0</strong></div>
-      <div class="vs">VS</div>
-      <div class="score"><small id="n2">Player 2</small><strong id="s2">0</strong></div>
-    </div>
-
-    <div id="playzone" class="card playzone" role="button" tabindex="0" aria-label="Tap to spin a number">
-      <div id="spinView">
-        <div id="spinTag" class="tag">🎲 Ready</div>
-        <div id="tapline" class="tapline">Tap the screen to spin</div>
-        <div id="spinner" class="spinner-wrap">
-          <div class="pointer"></div>
-          <div id="ring" class="ring"></div>
-          <div id="die" class="die">?</div>
-        </div>
-        <div id="spinHint" class="hint">The number will choose your question</div>
-      </div>
-      <div id="questionView" class="hidden">
-        <div id="qTag" class="tag"></div>
-        <div id="turn" class="turn"></div>
-        <div class="question"><span id="qnum" style="color:var(--gold)"></span><br><span id="qtext"></span></div>
-        <div class="hint">Tap again for the next spin</div>
-      </div>
-    </div>
-
-    <div class="actions">
-      <button id="point1">+1 Player 1</button>
-      <button id="point2">+1 Player 2</button>
-      <button id="forfeit" class="ghost full">🎭 Random Forfeit</button>
-      <button id="skip" class="ghost full">Skip / Spin Again</button>
-      <button id="change" class="ghost full">Change Players / Level</button>
-    </div>
-    <div id="forfeitBox" class="card hidden" style="margin-top:12px;text-align:center"></div>
-  </section>
+<section id="game" class="hidden">
+ <div class="score"><div class="scorebox"><span id="n1"></span><br><b id="s1">0</b></div><div class="vs">VS</div><div class="scorebox"><span id="n2"></span><br><b id="s2">0</b></div></div>
+ <div class="card" style="padding:12px 16px"><label>Intensity</label><select id="level" onchange="levelChanged()">
+  <option value="fun">😄 Fun</option><option value="flirty">😘 Flirty</option><option value="daring">🔥 Daring</option><option value="after">🌙 After Dark</option><option value="explicit">🔞 Explicit</option><option value="surprise">🎲 Surprise Me</option>
+ </select></div>
+ <div id="play" class="card play" onclick="spin(event)">
+   <div class="levelBadge" id="badge">😘 Flirty</div>
+   <div class="turn" id="turn">Tap the wheel to spin</div>
+   <div id="wheel" class="wheel"><div id="num" class="wheelInner">?</div></div>
+   <div id="qno" class="questionNo hidden"></div><div id="question" class="question hidden"></div>
+   <div id="hint" class="instruction">Tap anywhere in this card</div>
+ </div>
+ <div class="controls"><button onclick="addScore(0,event)">+1 <span id="bp1"></span></button><button onclick="addScore(1,event)">+1 <span id="bp2"></span></button></div>
+ <button class="forfeit" style="margin-top:12px" onclick="forfeit(event)">🎭 Random Forfeit</button>
+ <div id="forfeitText" class="card hidden" style="text-align:center;font-size:20px"></div>
+ <div class="toolbar" style="margin-top:12px"><button class="secondary small" onclick="skip(event)">⏭ Skip / Spin Again</button><button class="danger small" onclick="newGame(event)">↩ New Game</button></div>
+</section>
 </div>
-
 <script>
-(() => {
-const QUESTIONS = {"1": ["What was your first impression of me?", "What tiny thing I do always makes you smile?", "What is your favourite memory of us so far?", "If we could wake up anywhere tomorrow, where would it be?", "What adventure should we definitely do together?", "What three words describe us best?", "What is one thing about me you would never want to change?", "Which of us would survive longer on a desert island, and why?", "What does our perfect lazy Sunday look like?", "What do you think we are best at as a couple?", "What song makes you think of me?", "What is the funniest thing we have done together?", "What meal best sums up our relationship?", "What is something you think I am better at than I realise?", "Which of us is more stubborn?", "What is one place you would love us to visit together?", "What is something you hope we are still doing together in ten years?", "What was the first thing about me you noticed?", "What is your favourite photo of us?", "What habit of mine do you secretly find adorable?", "What would be our perfect spontaneous day out?", "If our relationship was a film, what genre would it be?", "What is one thing I do that makes you feel looked after?", "What is something new you would love us to learn together?", "What is our funniest inside joke?", "Who is more likely to get us lost?", "What is something about us that you are proud of?", "What is one thing you would love us to do more often?", "What is your favourite ordinary moment with me?", "If you planned our perfect breakfast, what would it be?", "What is one thing we should put on a couples bucket list?", "What nickname would you give our relationship?", "What is one thing you think we understand about each other better than most couples?", "What is your favourite way we spend a quiet evening?", "What is one thing that always cheers you up when I do it?", "If we won the lottery tomorrow, what is the first thing we should do together?", "What is something you think makes us a good team?", "What moment made you feel especially close to me?", "What is one silly challenge you think we should try together?", "What is one thing you hope never becomes boring between us?"], "2": ["When did you first realise you properly fancied me?", "What feature of mine do your eyes go to first?", "What do I wear that you find hardest to resist?", "What is the sexiest thing I do without realising?", "What is your favourite way for me to kiss you?", "When do you find me most attractive?", "What compliment from me do you remember most?", "What is your favourite memory of us being really close?", "If you planned a romantic night just for us, what would it include?", "What is something you would like me to initiate more often?", "What look do I give you that you instantly recognise?", "Where would you love us to disappear to for a romantic weekend?", "What is something I do that instantly changes your mood for the better?", "What is the best kiss we have ever had?", "What would make an ordinary evening together feel special?", "What is something you have wanted to whisper to me but have not?", "What is one thing you wish I knew about how attracted you are to me?", "If we had a hotel room and no plans tomorrow, what would your ideal night feel like?", "What is the most romantic thing I could surprise you with?", "What moment between us had the strongest chemistry?", "What is the first thing you would compliment if you were flirting with me as a stranger?", "What scent, outfit or look of mine do you associate with attraction?", "What is something I do that makes you want to get closer to me?", "What part of a date with me do you look forward to most?", "What kind of kiss suits us best: quick, slow, unexpected or lingering?", "What is one thing you would love me to say more often?", "What is one thing you find more attractive about me now than when we first met?", "What kind of date makes you feel most connected to me?", "What is a moment when you caught yourself staring at me?", "What is one thing I do that makes you feel wanted?", "If I sent you one flirty message right now, what would you want it to say?", "What is a romantic place you would love to kiss me?", "What is one thing about our chemistry that surprised you?", "What is your favourite way for me to get your attention?", "What is one thing you find irresistibly cute about me?", "If you could replay one romantic moment between us, which would it be?", "What is one compliment you have thought but never said?", "What is one thing I could do on a date that would make you blush?", "What kind of romantic surprise would work on you every time?", "What makes flirting between us work so well?"], "3": ["Would you rather take charge tonight or have me take charge?", "What is something you would like us to be more adventurous about?", "What kind of surprise from me would make your heart race?", "What is a bold date-night idea you have never suggested?", "What is something you would like me to do more often when we are alone?", "What is somewhere unusual you would love us to share a romantic moment?", "What is the boldest compliment you can give me right now?", "If you could make one rule for our date night, what would it be?", "What would make you feel completely spoiled by me for an evening?", "What playful dare would you genuinely enjoy right now?", "What part of anticipation do you enjoy most: the flirting, the teasing, or the surprise?", "What is something new you would feel comfortable trying on a romantic weekend?", "Describe the atmosphere of your ideal very private date night.", "What is something about our chemistry you think has got better over time?", "What would you choose: slow romantic evening or spontaneous mischievous night?", "Give me a 20-second compliment without repeating yourself.", "Choose: long kiss, long cuddle, or long massage — and explain why.", "What is something I could say to you that would instantly make the evening feel flirtier?", "What is a romantic risk you would happily take with me?", "What is one boundary or preference that helps you feel more relaxed and connected?", "What would your perfect late-night date involve?", "What is something daring you would love me to suggest first?", "What kind of teasing do you find fun rather than annoying?", "What is something you would happily do tonight if we both agreed?", "If you could pick the mood for the rest of the night, what would it be?", "What is one thing you want more confidence to ask me for?", "What would make you feel especially desired by me?", "What is one thing you would love us to try on a weekend away?", "Which is more exciting to you: anticipation or surprise?", "What is one thing you would love me to do without you having to ask?", "What is the boldest date idea that still sounds genuinely fun to you?", "What is one thing you think would make us even more playful together?", "What is one thing you would want me to choose for you on a date?", "What is one thing you would love to be dared to do?", "What kind of romantic tension do you enjoy most?", "What is one thing you would like us to be more open about?", "What is a playful rule you would set for the next hour?", "What is one thing you think we would be surprisingly good at trying together?", "What would be a perfect 'no phones, no plans' evening?", "What is one daring question you have wanted me to ask you?"], "4": ["What is a fantasy date-night scenario you have never told me about?", "If you could be completely in charge of our evening, what would the mood be?", "What is something you have imagined us trying that you have not brought up yet?", "What is the most irresistible version of me in your head?", "What kind of teasing or anticipation do you enjoy most?", "What is one thing you would love me to be more confident about with you?", "If we had total privacy for 24 hours, what would make it memorable?", "What is something daring you would be happy to try if we both agreed first?", "What is the boldest thing you would like to ask me tonight?", "If tonight had a safe word for 'too much', what ridiculous word should we choose?", "What kind of role would you enjoy more tonight: leader, follower, or switch it up?", "What is something you have wanted me to initiate but have been too shy to request?", "What is the hottest non-explicit memory you have of us?", "What would make you feel especially desired tonight?", "What is one thing you would like us to talk about more openly when we are intimate?", "What is the most mischievous date-night challenge you would genuinely enjoy?", "What is one thing you would love to hear me say to you when we are alone?", "Choose one: mystery, romance, teasing, or spontaneity. Why?", "What would your perfect 'phones off, door locked, no plans' evening feel like?", "Look at me for 20 seconds without speaking. Whoever laughs first owes the other a kiss.", "What is one fantasy you think I would be surprised you have?", "What is one thing you secretly hope I suggest tonight?", "What kind of attention from me makes you feel most wanted?", "What is the boldest thing you have imagined doing on a romantic getaway?", "What is one thing you would like to experiment with as a couple, if we both felt comfortable?", "What is one thing you would love me to take the lead on?", "What is one thing you would rather decide together than leave to chance?", "What kind of private challenge would you enjoy playing with me?", "What is one thing you would like more of during intimate moments?", "What is something you would love me to be more direct about?", "What is the most tempting kind of surprise I could plan for you?", "What is one thing you would happily admit only when it is just the two of us?", "What is one thing you would like me to notice more about what you enjoy?", "What is one thing you would want more time for when we are alone?", "What makes an intimate evening feel exciting rather than routine?", "What is one thing you have been curious to ask about my preferences?", "What is one thing you would like to try once just to see if we enjoy it?", "What is one thing you would want me to whisper in your ear?", "What is one thing you find especially exciting about anticipation?", "If we had an entire night with no interruptions, what would you want the mood to be from start to finish?"], "5": ["What is the filthiest thought you have had about me that you have never admitted?", "What is something you have desperately wanted to ask me for but felt too embarrassed to say?", "What is the most turned on you can remember being because of me?", "What fantasy involving the two of us would surprise me most?", "What is something you would love me to whisper to you when nobody else could hear?", "What is the naughtiest place you have ever imagined the two of us together?", "What is something about me that instantly gets your mind going somewhere it probably should not?", "If embarrassment disappeared tonight, what would you finally admit you wanted?", "What is one desire you have deliberately kept secret from me?", "What question are you secretly hoping comes up in this game?", "What is the dirtiest compliment you could give me without describing an act?", "What is one thing you want me to be much more shameless about with you?", "What is one fantasy you would only admit after a couple of drinks?", "What is one thing you would love me to say that would instantly change the mood?", "What is the most inappropriate moment you have caught yourself thinking about me?", "What is one thing you would love to confess with the lights off?", "What is one private thought about me that you have never said out loud?", "What is one thing you would love me to ask permission to do more often?", "What is the most provocative message you would love to receive from me?", "What is something you wish I was more daring about?", "What is one thing you would love to tell me to do without feeling self-conscious?", "What is one fantasy you have replayed in your head more than once?", "What is something you want me to understand about what really gets you going?", "What is the boldest invitation you would love me to make tonight?", "What is one thing you want to be more honest about when we are alone?", "What is something you would love me to tease you about in private?", "What is one desire you think I would never guess correctly?", "What is the most mischievous thought you have had about us in public?", "What is one thing you would want more of if there were absolutely no awkwardness?", "What is one thing you wish you were brave enough to ask for tonight?", "What is one way you would love me to make you feel irresistible?", "What is one confession that would make you blush even saying it to me?", "What is something you would love us to get much more adventurous about?", "What is one thing you would want me to choose for you if you trusted me completely?", "What kind of filthy-but-non-graphic message from me would make you grin instantly?", "What is one private fantasy you think would be fun to talk about even if we never acted on it?", "What is one thing you would love me to initiate with much more confidence?", "What is one thing you think about when you really miss me?", "What is one fantasy you would like us to talk through together sometime?", "What is the boldest thing you are willing to admit to me right now?"], "6": ["What is the boldest thing you want to admit to me tonight?", "What is one private desire you have never had the nerve to say out loud?", "What is the most outrageous thought you have had about me in public?", "If all embarrassment disappeared for one hour, what would you ask me for?", "What is one thing you want me to be much more direct about with you?", "What is the most tempting message I could send you when we are apart?", "What is one secret fantasy you would be willing to talk through with me tonight?", "What is one thing you would love to hear me confess to you?", "What is something you secretly hope I dare you to admit?", "What is the boldest compliment you could give me without describing an act?", "What is one thing you would love me to initiate more confidently?", "What is one thing you think about when you really miss me?", "What is one private thought about me that always makes you smile?", "What is something you want more permission to ask for in our relationship?", "What is one thing you would love to try together if we both felt completely comfortable?", "What is one thing you would love me to choose for you on a date night?", "What is one thing you would love us to be more shameless about together?", "What is one question you have been hoping I would ask you?", "What is one desire you think I would never guess correctly?", "What is the most mischievous thing you have wanted to suggest to me?", "What is one thing you would happily admit only when no one else could ever hear?", "What is one fantasy you think would surprise me but not scare me?", "What is one thing you would love me to notice more about what you enjoy?", "What is one thing you wish we talked about more openly when we are alone?", "What is one thing you would love to be dared to say to me right now?", "What is the boldest date-night idea you would genuinely enjoy?", "What is one thing you would like us to experiment with as a couple?", "What is one thing you would love me to whisper in your ear?", "What is one thing you would want more of if awkwardness did not exist?", "What is the most daring confession you are willing to make right now?", "What is one thing you would love to ask me if you knew I would not judge you?", "What is the boldest invitation you would love me to make tonight?", "What is one thing you want me to understand about what really excites you?", "What is one private fantasy you would enjoy talking about even if we never acted on it?", "What is one thing you would love me to be more adventurous about?", "What is one thing you have imagined us doing on a romantic getaway?", "What is one thing you would love us to make a regular part of date nights?", "What is one secret thought about us that you have replayed more than once?", "What is one thing you would love to feel brave enough to say to me tonight?", "What is one thing you want me to remember about what makes you feel wanted?"]};
-const FORFEITS = ["Give the other person a 20-second kiss.", "Give the other person a one-minute shoulder massage.", "Say three things you find attractive about the other person.", "Let the other person choose the next question level.", "Send the other person a flirty message while sitting beside them.", "Hold eye contact for 20 seconds without laughing.", "Give the other person a slow dance for one song.", "Let the other person choose a romantic challenge for you.", "Tell the other person one thing you would love more of in the relationship.", "Give the other person breakfast in bed tomorrow.", "Whisper one thing you really want the other person to know.", "Let the other person choose your next answer: honest, extra honest, or skip.", "Give the other person a 30-second compliment with no repeats.", "Choose one song for a private slow dance.", "Tell the other person one thing you have never said because it felt too bold.", "Let the other person ask one bonus question from any level.", "Hold hands and maintain eye contact for 30 seconds.", "Plan one surprise date for the next two weeks.", "Give the other person a kiss somewhere they choose, within your agreed boundaries.", "Let the other person choose whether the next round goes up or down one level."];
-const $=id=>document.getElementById(id);
-const labels={1:"😊 Fun",2:"😘 Flirty",3:"🔥 Daring",4:"😈 After Dark",5:"🔞 Filthy",6:"🔥 No Limits"};
-let names=["Player 1","Player 2"],scores=[0,0],level=2,round=0,busy=false;
-
-let soundOn=true;
-let audioCtx=null;
-function tone(freq=440,dur=.06,gain=.04,type="sine"){
-  if(!soundOn)return;
-  try{
-    audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
-    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-    o.type=type;o.frequency.value=freq;g.gain.value=gain;
-    o.connect(g);g.connect(audioCtx.destination);o.start();
-    g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);
-    o.stop(audioCtx.currentTime+dur);
-  }catch(e){}
-}
-function haptic(pattern){try{if(navigator.vibrate)navigator.vibrate(pattern);}catch(e){}}
-
-let used={1:new Set(),2:new Set(),3:new Set(),4:new Set(),5:new Set(),6:new Set()};
-
-function save(){
-  const data={names,scores,level,round,soundOn};
-  try{localStorage.setItem("cad-state",JSON.stringify(data));}catch(e){}
-}
-function load(){
-  try{
-    const s=JSON.parse(localStorage.getItem("cad-state")||"null");
-    if(s&&Array.isArray(s.names)){
-      names=s.names; scores=Array.isArray(s.scores)?s.scores:[0,0]; round=Number(s.round)||0; soundOn=s.soundOn!==false;
-      $("p1").value=s.names[0]||"Player 1"; $("p2").value=s.names[1]||"Player 2"; $("soundToggle").textContent=soundOn?"🔊 Sound On":"🔇 Sound Off";
-      if([0,1,2,3,4,5,6].includes(Number(s.level))) $("level").value=String(s.level);
-    }
-  }catch(e){}
-}
-function currentLevel(){ return level===0 ? Math.min(6,1+Math.floor(round/4)) : level; }
-function resetUsed(){ used={1:new Set(),2:new Set(),3:new Set(),4:new Set(),5:new Set(),6:new Set()}; }
-function show(id){ $("setup").classList.toggle("hidden",id!=="setup"); $("game").classList.toggle("hidden",id!=="game"); }
-function resetSpin(){
-  const l=currentLevel();
-  $("questionView").classList.add("hidden"); $("spinView").classList.remove("hidden");
-  $("die").textContent="?"; $("spinTag").textContent=level===0?"🎲 Surprise Me":labels[l];
-  $("tapline").textContent="Tap the screen to spin"; $("spinHint").textContent="The number will choose your question";
-}
-function start(){
-  names=[$("p1").value.trim()||"Player 1",$("p2").value.trim()||"Player 2"];
-  level=Number($("level").value); round=0; scores=[0,0]; resetUsed();
-  $("n1").textContent=names[0]; $("n2").textContent=names[1];
-  $("point1").textContent="+1 "+names[0]; $("point2").textContent="+1 "+names[1];
-  $("s1").textContent="0"; $("s2").textContent="0";
-  $("modePill").textContent=level===0?"🎲 Surprise Me":labels[level];
-  $("forfeitBox").classList.add("hidden");
-  show("game"); resetSpin(); save();
-}
-function chooseQuestion(l){
-  const arr=QUESTIONS[String(l)];
-  let choices=arr.map((_,i)=>i).filter(i=>!used[l].has(i));
-  if(!choices.length){used[l].clear();choices=arr.map((_,i)=>i);}
-  const idx=choices[Math.floor(Math.random()*choices.length)];
-  used[l].add(idx);
-  return {idx,text:arr[idx]};
-}
-function spin(){
-  if(busy)return; busy=true; $("forfeitBox").classList.add("hidden");
-  $("questionView").classList.add("hidden"); $("spinView").classList.remove("hidden");
-  const l=currentLevel(), pick=chooseQuestion(l), die=$("die"), ring=$("ring"), wrap=$("spinner");
-  ring.classList.add("spin"); die.classList.add("pulse","glow"); $("tapline").textContent="Spinning…"; tone(420,.05,.03,"square"); haptic(12); $("spinHint").textContent="";
-  let ticks=0,delay=38;
-  const tick=()=>{
-    const fake=1+Math.floor(Math.random()*QUESTIONS[String(l)].length); die.textContent=String(fake); ticks++; if(ticks%2===0)tone(220+ticks*18,.025,.018,"square");
-    if(ticks<17){
-      if(ticks===10){$("tapline").textContent="Slowing down…";wrap.classList.add("shake");setTimeout(()=>wrap.classList.remove("shake"),500);}
-      delay+=ticks<9?5:20; setTimeout(tick,delay); return;
-    }
-    ring.classList.remove("spin"); die.classList.remove("pulse","glow"); tone(760,.09,.05); haptic([20,35,45]); die.textContent=String(pick.idx+1); $("tapline").textContent="Almost…";
-    setTimeout(()=>{
-      die.classList.add("pop"); $("tapline").textContent="Question "+(pick.idx+1)+"!";
-      setTimeout(()=>{die.classList.remove("pop"); tone(980,.12,.045); reveal(l,pick);},650);
-    },500);
-  };
-  tick();
-}
-function reveal(l,pick){
-  round++; const turn=(round-1)%2;
-  $("qTag").textContent=labels[l]; $("turn").textContent=names[turn]+"'s turn";
-  $("qnum").textContent="#"+(pick.idx+1); $("qtext").textContent=pick.text;
-  $("spinView").classList.add("hidden"); $("questionView").classList.remove("hidden");
-  busy=false; save();
-}
-$("start").addEventListener("click",start);
-$("playzone").addEventListener("click",spin);
-$("playzone").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();spin();}});
-$("point1").addEventListener("click",e=>{e.stopPropagation();scores[0]++;$("s1").textContent=scores[0];tone(660,.06,.035);save();});
-$("point2").addEventListener("click",e=>{e.stopPropagation();scores[1]++;$("s2").textContent=scores[1];tone(660,.06,.035);save();});
-$("skip").addEventListener("click",e=>{e.stopPropagation();resetSpin();});
-$("change").addEventListener("click",e=>{e.stopPropagation();show("setup");});
-$("soundToggle").addEventListener("click",()=>{soundOn=!soundOn;$("soundToggle").textContent=soundOn?"🔊 Sound On":"🔇 Sound Off";tone(soundOn?660:220,.08,.05);save();});
-$("resetSaved").addEventListener("click",()=>{try{localStorage.removeItem("cad-state")}catch(e){}; names=["Player 1","Player 2"];scores=[0,0];round=0;level=2;soundOn=true;$("p1").value="Player 1";$("p2").value="Player 2";$("level").value="2";$("soundToggle").textContent="🔊 Sound On";});
-$("forfeit").addEventListener("click",e=>{
-  e.stopPropagation(); const f=FORFEITS[Math.floor(Math.random()*FORFEITS.length)];
-  tone(330,.12,.04,"triangle"); haptic(25); $("forfeitBox").textContent="🎭 "+f; $("forfeitBox").classList.remove("hidden");
-});
-load();
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}
-})();
+const Q={
+fun:[
+"What's the funniest memory we have together?","What tiny thing I do always makes you smile?","If we disappeared for a weekend tomorrow, where would we go?","What was your first impression of me?","What's one thing we're surprisingly good at as a couple?","Which of us would survive longest on a desert island?","What's one date you'd love us to repeat?","What's a ridiculous habit of mine you secretly like?","What song reminds you of us?","What's something new you'd like us to learn together?","What's your favourite ordinary moment we share?","If our relationship were a film, what genre would it be?","What three words describe us best?","Who is more competitive?","What's something I do better than I realise?","What would our perfect lazy Sunday look like?","What's the best spontaneous thing we've done?","What makes you feel most appreciated by me?","What should we do more often just for fun?","What's one place you'd love to travel with me?"
+],
+flirty:[
+"What makes flirting between us work so well?","What outfit of mine do you find most attractive?","What's the first physical thing you noticed about me?","When do you find me hardest to resist?","What's your favourite way for me to kiss you?","What's something I do that instantly gets your attention?","Where's your favourite place for us to kiss?","What's the most attractive thing about my confidence?","What's one compliment from me you never get tired of?","What's the sexiest date we've had?","What kind of flirting from me works every time?","What's something innocent I do that you find unexpectedly sexy?","Would you rather have a long kiss or a long massage?","What's your favourite memory of us being unable to keep our hands off each other?","What's something you'd like me to whisper in your ear?","What makes the anticipation between us exciting?","What's your favourite way for me to initiate affection?","What would make tonight feel especially romantic?","Which of my looks gives away exactly what I'm thinking?","What do I do that makes you feel most desired?"
+],
+daring:[
+"What's something adventurous you'd like us to try together?","Would you rather take charge or let me take charge tonight?","What's a fantasy setting you think would be exciting?","What's something you've wanted to ask me for but haven't?","What kind of teasing do you enjoy most?","What's the boldest place you'd consider sharing a passionate kiss?","What's one thing that instantly builds anticipation for you?","Would you prefer a surprise date or a surprise challenge?","What's a boundary you'd like us to talk about more openly?","What's something new you'd feel comfortable experimenting with together?","What makes you feel confident enough to be adventurous with me?","What's the most daring thing we've done as a couple?","What would your ideal slow-build evening look like?","What's something you'd like me to initiate more often?","Would you rather know what's coming or be surprised?","What kind of atmosphere makes you feel most adventurous?","What's something you find exciting that might surprise me?","What's one way we could make date night less predictable?","What does 'taking charge' mean to you?","What's something we haven't tried that you're curious about?"
+],
+after:[
+"What's a private fantasy you'd be comfortable telling me about?","What makes you feel most wanted by me?","Is there something you've imagined us trying but never mentioned?","What kind of anticipation turns you on most?","What's your favourite way for me to take the lead?","What's one thing you'd like more of when we're intimate?","What's something I do that changes your mood instantly?","Would you rather tonight be slow and teasing or spontaneous and intense?","What's a scenario you'd enjoy role-playing together?","What's something you would enjoy being surprised with, provided we agreed the boundaries first?","What makes you feel safest being completely open with me?","What's one intimate compliment you'd love to hear more often?","What sort of touch makes you feel closest to me?","What's something you'd like us to spend more time exploring together?","What's the best way for me to tell when you want me to take the lead?","What's something that makes an intimate moment memorable for you?","Would you rather plan an adventurous night together or let one person plan it?","What's one desire you think we could talk about more openly?","What's your favourite part of the build-up to intimacy?","What's one thing you want me to know about what makes you feel desired?"
+,
+explicit:["What is the filthiest thought you have had about me that you have never admitted?", "What is something you have desperately wanted to ask me for but felt too embarrassed to say?", "What fantasy involving the two of us would surprise me most?", "What is the naughtiest place you have imagined the two of us together?", "If embarrassment disappeared tonight, what would you finally admit you wanted?", "What is one desire you have deliberately kept secret from me?", "What is the most provocative message you would love to receive from me?", "What is something about me that instantly sends your mind somewhere naughty?", "What is one fantasy you have replayed in your head more than once?", "What is the boldest invitation you would love me to make tonight?", "What is one thing you secretly hope I suggest tonight?", "What is one private thought about me you have never said out loud?", "What is the most inappropriate moment you have caught yourself thinking about me?", "What is one thing you want me to be much more shameless about with you?", "What is one confession that would make you blush even saying it to me?", "What is one thing you wish you were brave enough to ask me for tonight?", "What is one desire you think I would never guess correctly?", "What is the most mischievous thought you have had about us while other people were around?", "What is one thing you would love me to whisper to you when nobody else could hear?", "What is one fantasy you would only admit when we were completely alone?", "What is one thing you would love me to take control of on a private date night?", "What is something you would love to take control of yourself?", "What is one thing you would love us to become more adventurous about?", "What is the boldest thing you would let me choose for you on a date night?", "What is one private fantasy you would enjoy talking through even if we never acted on it?", "What is one thing you would love me to initiate with much more confidence?", "What is one thing you think about when you really miss me?", "What is one desire you want us to be able to talk about without any embarrassment?", "What is one thing you would love to hear me confess about how much I want you?", "What is the naughtiest compliment you could give me without describing an act?", "What is one thing you want more of when we have complete privacy?", "What is one fantasy setting that instantly makes your imagination run wild?", "What is something you secretly want me to dare you to admit?", "What is one thing you would love us to try once purely because it sounds exciting?", "What is the boldest thing you would want to say to me with the lights off?", "What is one thing about taking charge or giving up control that appeals to you?", "What is one boundary or preference you would like us to talk about more openly before getting adventurous?", "What is one thing you would love me to notice more about what turns you on?", "What is one naughty question you have been hoping this game would make me answer?", "What is the filthiest non-graphic confession you are willing to make to me right now?"]
+]};
+const forfeits=["Give your partner a 30-second shoulder massage.","Give your partner your best deliberately cheesy chat-up line.","Hold eye contact for 20 seconds without laughing.","Let your partner choose your next question level.","Give your partner three genuine compliments.","Dance together for one minute with no music.","Give your partner a kiss somewhere they choose, within agreed boundaries.","Whisper something you love about your partner.","Recreate your first-date flirting for 30 seconds.","Your partner chooses: cuddle, kiss, or massage for one minute."];
+let names=["Player 1","Player 2"],score=[0,0],player=0,used={},busy=false,round=0;
+function label(l){return {fun:"😄 Fun",flirty:"😘 Flirty",daring:"🔥 Daring",after:"🌙 After Dark",explicit:"🔞 Explicit",surprise:"🎲 Surprise Me"}[l]}
+function startGame(){names=[p1.value.trim()||"Player 1",p2.value.trim()||"Player 2"];n1.textContent=bp1.textContent=names[0];n2.textContent=bp2.textContent=names[1];level.value=startLevel.value;setup.classList.add("hidden");game.classList.remove("hidden");updateBadge();turn.textContent=names[0]+"'s turn — tap to spin";window.scrollTo(0,0)}
+function currentLevel(){let l=level.value;if(l!=="surprise")return l;let stages=["fun","flirty","daring","after","explicit"];return stages[Math.min(4,Math.floor(round/4))]}
+function updateBadge(){badge.textContent=level.value==="surprise"?"🎲 Surprise → "+label(currentLevel()):label(level.value)}
+function levelChanged(){used={};updateBadge()}
+function choose(){let l=currentLevel(),arr=Q[l];if(!used[l])used[l]=[];let avail=arr.map((_,i)=>i).filter(i=>!used[l].includes(i));if(!avail.length){used[l]=[];avail=arr.map((_,i)=>i)}let i=avail[Math.floor(Math.random()*avail.length)];used[l].push(i);let offset={fun:0,flirty:20,daring:40,after:60,explicit:80}[l];return {text:arr[i],number:offset+i+1,l}}
+function spin(e){if(e)e.stopPropagation();if(busy)return;busy=true;question.classList.add("hidden");qno.classList.add("hidden");forfeitText.classList.add("hidden");hint.textContent="Spinning…";turn.textContent=names[player]+"'s turn";wheel.classList.add("spinning","pulse");let ticks=0;let iv=setInterval(()=>{num.textContent=1+Math.floor(Math.random()*120);ticks++;if(ticks>18){clearInterval(iv);wheel.classList.remove("spinning","pulse");let x=choose();num.textContent=x.number;qno.textContent="#"+x.number;question.textContent=x.text;qno.classList.remove("hidden");question.classList.remove("hidden");hint.textContent="Tap again for the next spin";round++;player=1-player;updateBadge();busy=false}},75)}
+function addScore(i,e){e.stopPropagation();score[i]++;document.getElementById("s"+(i+1)).textContent=score[i]}
+function skip(e){e.stopPropagation();if(!busy)spin(e)}
+function forfeit(e){e.stopPropagation();forfeitText.textContent=forfeits[Math.floor(Math.random()*forfeits.length)];forfeitText.classList.remove("hidden")}
+function newGame(e){e.stopPropagation();if(confirm("Start a new game?")){score=[0,0];player=0;round=0;used={};s1.textContent=s2.textContent="0";game.classList.add("hidden");setup.classList.remove("hidden");window.scrollTo(0,0)}}
 </script>
-</body>
-</html>
+</body></html>
